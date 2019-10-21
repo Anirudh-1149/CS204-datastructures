@@ -127,16 +127,11 @@ int main(){
 			Del(a,b,&head);
 		}
 		else if(condition==4){
-			double a;
-			cin>>a;
-			search(a,&head);
-		}
-		else if(condition==5){
 			int a,b;
 			cin>>a>>b;
 			search(a,b,&head);
 		}
-		else if(condition ==6){
+		else if(condition ==5){
 			length(&head);
 		}
 
