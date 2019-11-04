@@ -286,6 +286,10 @@ int hashtable::value(int key)
 {
 	int ind = hashFunction(key);
 	Node* node = search(table[ind],key);
+	if(node==NULL){
+		cout<<"key is not present\n";
+		return -99999;
+	}
 	return node->val; 
 }
 
@@ -295,7 +299,7 @@ int main()
 	cin>>b;
 	hashtable h(b);
   int a=0;
-  while(a!=4)
+  while(a!=5)
   {
   	cin>>a;
   	if(a==1)
@@ -311,6 +315,13 @@ int main()
   		h.deldeteit(key);
   	}
   	else if(a==3)
+  	{
+  		int key;
+  		cin>>key;
+  		if(h.value(key)!=-99999)
+  		cout<<h.value(key)<<"\n";
+  	}
+  	else if(a==4)
   	{
   		h.displayhash();
   	}
