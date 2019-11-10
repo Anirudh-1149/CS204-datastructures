@@ -10,7 +10,6 @@ class Node
     int height; 
 }; 
 
-
 int max(int a, int b); 
 
  
@@ -73,8 +72,7 @@ int getBalance(Node *N)
 { 
     if (N == NULL) 
         return 0; 
-    return height(N->left) - 
-        height(N->right); 
+    return height(N->left) - height(N->right); 
 } 
 
 Node* insert(Node* node, int key) 
@@ -132,15 +130,17 @@ Node * minValueNode(Node* node)
 Node* deleteNode(Node* root, int key) 
 { 
 
-    if (root == NULL) 
-        return root; 
+    if (root == NULL){
+    cout<<"Key is not present\n"; 
+    return root; 
+    }
 
 
     if ( key < root->key ) 
         root->left = deleteNode(root->left, key); 
 
     else if( key > root->key ) 
-        root->right = deleteNode(root->right, key); 
+        root->right = deleteNode(root->right, key);                       
 
 
     else
@@ -174,8 +174,9 @@ Node* deleteNode(Node* root, int key)
         } 
     } 
 
-    if (root == NULL) 
+    if (root == NULL){
     return root; 
+    }
 
     root->height = 1 + max(height(root->left), 
                         height(root->right)); 
@@ -217,26 +218,47 @@ void preOrder(Node *root)
     } 
 } 
 
+void inorder(struct Node *root) 
+{ 	
+	if (root != NULL) 
+	{ 
+		inorder(root->left); 
+		cout<<root->key<<" "; 
+		inorder(root->right); 
+	} 
+} 
+
 int main() 
 { 
-Node *root = NULL; 
+    Node *root = NULL; 
+    int a=0;
+    while(a!=5)
+    {
+        cin>>a;
+        if(a==1)
+        {
+            int x;
+            cin>>x;
+            root = insert(root,x);
+        }
+        if(a==2)
+        {
+            int x;
+            cin>>x;
+            root = deleteNode(root,x);
+        }
+        if(a==3)
+        {
+            Node* min = minValueNode(root);
+            cout<<min->key<<"\n";
+        }
+        if(a==4)
+        {
+            preOrder(root);
+            cout<<"\n";
+        }
+    }
 
-    root = insert(root, 9); 
-    root = insert(root, 5); 
-    root = insert(root, 10); 
-    root = insert(root, 0); 
-    root = insert(root, 6); 
-    root = insert(root, 11); 
-    root = insert(root, -1); 
-    root = insert(root, 1); 
-    root = insert(root, 2); 
-
-    preOrder(root); 
-    cout<<"\n";
-    root = deleteNode(root, 10); 
-
-    preOrder(root); 
-
-    return 0; 
-} 
+    return 0;
+}
 
