@@ -50,7 +50,7 @@ struct node * minValueNode(struct node* node)
 	
 struct node* deleteNode(struct node* root, int key) 
 { 	
-    if (root == NULL) return root; 
+    if (root == NULL){ cout<<"Key is not present\n";return root;} 
 
     if (key < root->key) 
         root->left = deleteNode(root->left, key); 
@@ -81,20 +81,63 @@ struct node* deleteNode(struct node* root, int key)
     return root; 
 } 	
 	
+void postorder( node* root) {
+        if(root == NULL) return;
+        postorder(root->left);
+        postorder(root->right);
+        cout << root->key << " ";
+    }
+void preorder( node* root) {
+        if(root == NULL) return;
+        cout << root->key << " ";
+        preorder(root->left);
+        preorder(root->right);
+    }
+
 int main() 
 { 	
 	
 	struct node *root = NULL; 
-	root = insert(root, 50); 
-	insert(root, 30); 
-	insert(root, 20); 
-	insert(root, 40); 
-	insert(root, 70); 
-	root = deleteNode(root,40);
-	insert(root, 60); 
-	insert(root, 80); 
-	inorder(root);
-	cout<<"\n"; 
+	int a=0;
+	while(a!=7)
+	{
+		cin>>a;
+		if(a==1)
+		{
+			int x;
+			cin>>x;
+			root = insert(root,x);
+		}
+		if(a==2)
+		{
+			int x;
+			cin>>x;
+			root = deleteNode(root,x);
+		}
+		if(a==3)
+		{
+			node* min = minValueNode(root);
+			if(root!=NULL)
+			cout<<root->key<<"\n";
+			else
+				cout<<"Tree is empty\n";
+		}
+		if(a==4)
+		{
+			inorder(root);
+			cout<<endl;
+		}
+		if(a==5)
+		{
+			preorder(root);
+			cout<<endl;
+		}
+		if(a==6)
+		{
+			postorder(root);
+			cout<<endl;
+		}
+	} 
 	
 	return 0; 
 } 	
