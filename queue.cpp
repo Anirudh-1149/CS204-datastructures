@@ -1,86 +1,73 @@
 #include <bits/stdc++.h> 
-using namespace std;
-
-class Queue  
-{   
-    int front, rear, size;  
-    unsigned capacity;  
-    int* array; 
-    public:
-        Queue(int capacity);
-        int Full();
-        int Empty();
-        void Enqueue(int item);
-        void Dequeue();
-        void Front();
-        void Rear();
-};  
-  
-
-Queue::Queue(int capacity)  
-{   
-    this->capacity = capacity;  
-    front = size = 0;  
-    rear = capacity - 1;  
-    array = new int[capacity];  
-}  
-  
-
-int Queue::Full()  
-{ return (size == capacity); }  
-  
-
-int Queue::Empty()  
-{ return (size == 0); }  
-  
-
-void Queue::Enqueue(int item)  
-{  
-    if (Full())  
-        cout<<"Queue is Full";
-    else{
-        rear = (rear + 1) % capacity;  
-        array[rear] = item;  
-        size = size + 1;  
-        cout << item << " enqueued to queue\n";  
+using namespace std;  
+class Node
+{
+public:
+    int value;
+    Node* nxt;
+};
+class Node* createnode()
+{
+    Node* node = new Node;
+    return node;
+}
+void push(Node** root,int x)
+{
+    Node* temp = createnode();
+    if(*root==NULL)
+    {
+        *root=temp;
+        temp->value=x;
+        temp->nxt=NULL;
     }
-}  
-
-void Queue::Dequeue()  
-{  
-    if (Empty())  
-        cout<<"Queue is Empty\n";
-    else{  
-        int item = array[front];  
-        front = (front + 1) % capacity;  
-        size = size - 1;  
-        cout<<item<<" is Dequeued\n"; 
-    } 
-}  
-  
-void Queue::Front()  
-{  
-    if (Empty())  
-        cout<<"Queue is Empty";
-        else{
-            cout<<array[front]<<"\n";
-        }    
-}  
-  
-void Queue::Rear()  
-{  
-    if (Empty())  
-        cout<<"Queue is Empty";  
     else
     {
-        cout<<array[rear]<<"\n";
-    } 
-}  
-
+        Node* t = *root;
+        while(t->nxt!=NULL)
+        {
+            t=t->nxt;
+        }
+        t->nxt=temp;
+        temp->value=x;
+        temp->nxt=NULL;
+    }
+}
+void pop(Node** root)
+{
+    Node *a;
+    a=*root;
+    if(a==NULL) {cout<<"Queue is empty!\n";return;}
+    cout<<a->value<<" is popped"<<endl;
+    *root=a->nxt;
+    delete a;
+    return;
+}
+bool isempty(Node* root)
+{
+    if(root==NULL) return true;
+    return false; 
+}
 int main()
 {
-    Queue q(6);
-    q.Enqueue(1);
-    q.Front();  
-    q.Rear();  
+    Node* root=NULL;
+    //enter a number greater than 3 to terminate
+    while(1)
+    {
+        int a; cin>>a;
+        if(a==1)
+        {
+            int v;cin>>v;
+            push(&root,v);
+        }
+        else if(a==2)
+        {
+            pop(&root);
+        }
+        else if(a==3)
+        {
+            if(isempty(root)) cout<<"Queue is empty\n";
+            else cout<<"Queue is not empty\n";
+        }
+        else break;
+    }
 }
